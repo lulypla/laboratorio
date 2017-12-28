@@ -1,0 +1,41 @@
+#puntajeNP1 {
+    width: 50%;
+    display: inline-flex;
+}
+
+#puntajeL {
+    width: 50%;
+    display: inline-flex;
+}
+
+.displayForm {
+    display: flex
+}
+
+#nav {
+    background-color: #031727;
+}
+
+.btnColor {
+    background-color: #18C29C;
+}
+
+#btnNuevaPeli {
+    background-color: #0B877D;
+}
+
+#colorFiltroP,
+#colorFiltroA,
+#colorFiltroD,
+#colorFiltroU {
+    background-color: #126872;
+}
+
+.agregar {
+    background-color: #88f9D4;
+}
+
+.paddingR {
+    padding-left: 15px;
+    ;
+}

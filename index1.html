@@ -1,0 +1,314 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>
+        Netflics
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="db.js">
+    </script>
+    <script type="text/javascript" src="clases.js">
+    </script>
+    <script type="text/javascript" src="eventos.js">
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <nav id="nav" class="navbar navbar-inverse ">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <h4 class="navbar-text ">Netflics</h4>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#" id="aPeliculas" onclick="mostrarPeliculas()">Peliculas</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Artistas
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="aDirectores" onclick="mostrarDirectores()">Directores</a></li>
+                            <li><a href="#" id="aActores" onclick="mostrarActores()">Actores</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="#" id="aUsuarios" onclick="mostrarUsuarios()">Usuarios</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div id="containerTotal" class="container">
+
+        <!--empieza PELICULAS-->
+
+        <div id="cPeliculas">
+
+
+
+
+            <div class="panel panel-default">
+                <div id="colorFiltroP" class="panel-heading ">Filtros Peliculas</div>
+                <div class="panel-body container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                            <div class="input-group  ">
+                                <input id="buscarP" type="text" class="form-control" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <button id="btnBuscar" onclick="filtroPeliTitulo()" class="btn btn-default" type="button">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                          </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" text-right">
+                            <div class="form-group col-lg-6 col-md-6 col-lg-6 col-sm-12 col-xs-12 displayForm">
+                                <label id="puntajeL" for="puntaje">Puntaje:</label>
+                                <select onchange="filtroPeliPorPuntaje()" class="form-control" id="puntajeNP1">
+                                              <option >1</option>
+                                              <option >2</option>
+                                              <option >3</option>
+                                              <option >4</option>
+                                              <option >5</option>
+                                              <option >6</option>
+                                              <option >7</option>
+                                              <option >8</option>
+                                              <option >9</option>
+                                              <option >10</option>
+                
+                                            </select>
+                            </div>
+                        </div>
+                    </div>
+                    </br>
+                    <div class="row paddingR">
+
+                        <button class="btn btnColor " onclick="agregarPeliculasTabla(aPeliculas)">Listar Todos Las Peliculas</button>
+                        <button class="btn btnColor" onclick="peliculaEnMasListasDeFavoritos()"> peliculaEnMasListasDeFavoritos</button>
+                        <button class="btn btnColor" onclick="pelisUsuarioMayorEdad()"> pelisUsuarioMayorEdad</button>
+
+                    </div>
+
+                </div>
+            </div>
+            <table class="table table-striped" id="tablaPeliculas">
+
+            </table>
+            <!-- BOTON AGREGAR PELI -->
+            <div class="text-right"><button id="btnNuevaPeli" data-toggle="modal" data-target="#pelinueva" type="button" class="btn">Nueva</button></div>
+
+            <!-- MODAL PARA PONER NUEVA PELI-->
+            <div class="modal fade" id="pelinueva" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Agregar Pelicula</h5>
+
+                        </div>
+                        <div class="modal-body">
+
+                            <form>
+                                <div class="form-group">
+                                    <label for="titulo">Titulo</label>
+                                    <input class="form-control input-sm" id="tituloNP" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fecha">Fecha</label>
+                                    <input class="form-control" id="fechaNP" type="date">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="puntaje">Puntaje:</label>
+                                    <select class="form-control" id="puntajeNP">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+
+                            </select>
+                                    <div class="form-group">
+                                        <label for="director">Director</label>
+                                        <input class="form-control" id="directorNP" type="text" placeholder="Nombre Apellido Apellido2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="actores">Actores</label>
+                                        <input class="form-control" id="actoresNP" type="text" placeholder="NombreActor ApellidoActor, NombreActor2 ApellidoActor2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripcion</label>
+                                        <input class="form-control" id="descripcionNP" type="text" placeholder="Escribe una breve descipcion">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="imagen1NP">Imagen1</label>
+                                        <input class="form-control" id="imagen1NP" type="text" placeholder="Ingrese link">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="imagen2NP">Imagen2</label>
+                                        <input class="form-control" id="imagen2NP" type="text" placeholder="Ingrese link">
+                                    </div>
+                                    <div class="text-right"><button data-dismiss="modal" onclick="esconderNuevaPeli(),borrarDatos()" id="btnCancelarNuevaPeli" type="button" class="btn">Cancelar</button>
+
+                                        <button data-dismiss="modal" onclick="ingresarPelicula(),esconderNuevaPeli(),borrarDatos()" id="btnAgregarPeli" type="button" class="btn agregar">Agregar</button></div>
+                                    </fieldset>
+                            </form>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- CIERRA MODAL PARA PONER NUEVA PELI-->
+        </div>
+        <!--Cierro container Peliculas -->
+
+        <div id="cDirectores">
+            <div class="panel panel-default">
+                <div id="colorFiltroD" class="panel-heading ">Filtros Directores</div>
+                <div class="panel-body container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-group  ">
+                                <input id="buscarD" type="text" class="form-control" placeholder="Nombre Apellido">
+                                <div class="input-group-btn">
+                                    <button id="btnBuscarD" onclick="directorPorNombre()" class="btn btn-default" type="button">
+                                                            <i class="glyphicon glyphicon-search"></i>
+                                                          </button>
+
+                                </div>
+                            </div>
+                            <div class="input-group  ">
+                                <input id="buscarDN" type="text" class="form-control" placeholder="Pais">
+                                <div class="input-group-btn">
+                                    <button id="btnBuscarDN" onclick="directoresPorNacionalidad()" class="btn btn-default" type="button">
+                                                                              <i class="glyphicon glyphicon-search"></i>
+                                                                            </button>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    </br>
+                    <div class="row paddingR">
+
+                        <button class="btn  btnColor" onclick="agregarDirectoresTabla(aDirectores)">Listar Todos Los Directores</button>
+
+                    </div>
+                </div>
+
+            </div>
+            <table class="table table-striped" id="tablaDirectores">
+
+            </table>
+
+        </div>
+        <!--Cierro container Directores -->
+
+        <div id="cActores">
+
+            <div class="panel panel-default">
+                <div id="colorFiltroA" class="panel-heading ">Filtros Actores</div>
+                <div class="panel-body container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-group  ">
+                                <input id="buscarA" type="text" class="form-control" placeholder="Nombre Apellido">
+                                <div class="input-group-btn">
+                                    <button id="btnBuscarA" onclick="actorPorNombre()" class="btn btn-default" type="button">
+                                                            <i class="glyphicon glyphicon-search"></i>
+                                                          </button>
+
+                                </div>
+                            </div>
+                            <div class="input-group  ">
+                                <input id="buscarAN" type="text" class="form-control" placeholder="Pais">
+                                <div class="input-group-btn">
+                                    <button id="btnBuscarAN" onclick="actoresPorNacionalidad()" class="btn btn-default" type="button">
+                                                                              <i class="glyphicon glyphicon-search"></i>
+                                                                            </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </br>
+                    <div class="row paddingR">
+
+                        <button class="btn  btnColor" onclick="agregarActoresTabla(aActores)">Listar Todos Los Actores</button>
+                        <button class="btn  btnColor" onclick="diezActoresMayorEdad()">Listar 10 ActoresMayorEdad</button>
+                        <button class="btn  btnColor" onclick="actoresDePeliculaMasRecientes()">Listar actoresDePeliculaMasRecientes</button>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped" id="tablaActores">
+
+            </table>
+        </div>
+        <!--Cierro container Actores -->
+
+
+        <div id="cUsuarios">
+            <div class="panel panel-default">
+                <div id="colorFiltroU" class="panel-heading ">Filtros Usuarios</div>
+                <div class="panel-body container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-group  ">
+                                <input id="buscarU" type="text" class="form-control" placeholder="Nombre Apellido">
+                                <div class="input-group-btn">
+                                    <button id="btnBuscar" onclick="usuarioPorNombre()" class="btn btn-default" type="button">
+                                                    <i class="glyphicon glyphicon-search"></i>
+                                                  </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </br>
+                    <div class="row paddingR">
+
+                        <button class="btn  btnColor" onclick="agregarUsuariosTabla(aUsuarios)">Listar Todos Los Usuarios</button>
+                        <button class="btn  btnColor" onclick="usuarioFemeninosMenorEdad()">Usuaria de menor edad</button>
+                        <button class="btn  btnColor" onclick="usuarioMayorPromedioPuntajeFavoritos()">UsuarioMayorPromedioPuntajeFavoritos</button>
+
+
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped" id="tablaUsuarios">
+
+            </table>
+        </div>
+        <!--Cierro container Usuarios -->
+
+    </div>
+    <!--Cierro container general -->
+</body>
+
+</html>
